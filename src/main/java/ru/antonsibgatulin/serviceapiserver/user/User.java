@@ -1,6 +1,7 @@
 package ru.antonsibgatulin.serviceapiserver.user;
 
 import jakarta.persistence.*;
+import ru.antonsibgatulin.serviceapiserver.money.Money;
 
 @Entity(name = "User")
 @Table(name = "user",
@@ -40,7 +41,21 @@ public class User {
     private Long timeLastOnline;
 
 
-    
+    //@Query("FROM Money m where m.userId = ?1")
+    //private Money money(Integer id);
+
+    @ManyToOne
+    @JoinColumn(name = "money")
+    @MapKey(name="user_id")
+    private Money money;
+
+
+    @ManyToOne
+    @JoinColumn(name = "account")
+    @MapKey(name = "user_id")
+    private Account account;
+
+
 
 
     public User(Long userId, String login, String password, String email, String number, String name, String surname, Integer typeUser, Long type, Long timeReg, Long timeLastOnline) {
@@ -150,6 +165,22 @@ public class User {
         this.timeLastOnline = timeLastOnline;
     }
 
+    public Money getMoney() {
+        return money;
+    }
+
+    public void setMoney(Money money) {
+        this.money = money;
+    }
+
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 
     @Override
     public String toString() {

@@ -12,15 +12,13 @@ import ru.antonsibgatulin.serviceapiserver.user.repository.UserRepository;
 
 
 @RestController
-@RequestMapping("auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
 
-   /* public AuthController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }*/
+
 
 
     @PostMapping(name = "/")
