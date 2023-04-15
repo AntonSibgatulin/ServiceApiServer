@@ -2,6 +2,9 @@ package ru.antonsibgatulin.serviceapiserver.user;
 
 import jakarta.persistence.*;
 import ru.antonsibgatulin.serviceapiserver.money.Money;
+import ru.antonsibgatulin.serviceapiserver.subject.UserSubject;
+
+import java.util.List;
 
 @Entity(name = "User")
 @Table(name = "user",
@@ -45,15 +48,19 @@ public class User {
     //private Money money(Integer id);
 
     @ManyToOne
-    @JoinColumn(name = "money")
+    @JoinTable(name = "money")
     @MapKey(name="user_id")
     private Money money;
 
 
     @ManyToOne
-    @JoinColumn(name = "account")
+    @JoinTable(name = "account")
     @MapKey(name = "user_id")
     private Account account;
+
+    @ManyToMany
+    @JoinTable(name="user_subject")
+    private List<UserSubject> lists;
 
 
 
@@ -180,6 +187,14 @@ public class User {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public List<UserSubject> getLists() {
+        return lists;
+    }
+
+    public void setLists(List<UserSubject> lists) {
+        this.lists = lists;
     }
 
     @Override
