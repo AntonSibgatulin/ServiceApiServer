@@ -1,4 +1,6 @@
-package ru.antonsibgatulin.serviceapiserver.controllers.api.get.request;
+package ru.antonsibgatulin.serviceapiserver.controllers.api.reg.request;
+
+import ru.antonsibgatulin.serviceapiserver.controllers.api.reg.exception.BadRequest;
 
 public class RegRequest {
 
@@ -80,5 +82,14 @@ public class RegRequest {
 
     public void setTypeUser(Integer typeUser) {
         this.typeUser = typeUser;
+    }
+
+    public Exception getException(){
+        if(password==null || login==null || email==null || number==null || name == null || surname == null || typeUser== null){
+            BadRequest badRequest = new BadRequest();
+            badRequest.error = "Bad request.Something is wrong!";
+            return badRequest;
+        }
+        return null;
     }
 }

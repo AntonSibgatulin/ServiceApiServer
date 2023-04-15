@@ -15,8 +15,7 @@ import java.util.List;
 
 public class User {
     @Id
-    @SequenceGenerator(name = "user_sequence",sequenceName = "user_sequence",allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "user_sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id",updatable = false)
     private Long userId;
 
@@ -47,26 +46,41 @@ public class User {
     //@Query("FROM Money m where m.userId = ?1")
     //private Money money(Integer id);
 
-    @ManyToOne
-    @JoinTable(name = "money")
-    @MapKey(name="user_id")
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "money_id")
     private Money money;
 
 
-    @ManyToOne
-    @JoinTable(name = "account")
-    @MapKey(name = "user_id")
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
     private Account account;
 
-    @ManyToMany
-    @JoinTable(name="user_subject")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_subjects_by_id")
     private List<UserSubject> lists;
+
+
 
 
 
 
     public User(Long userId, String login, String password, String email, String number, String name, String surname, Integer typeUser, Long type, Long timeReg, Long timeLastOnline) {
         this.userId = userId;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.number = number;
+        this.name = name;
+        this.surname = surname;
+        this.typeUser = typeUser;
+        this.type = type;
+        this.timeReg = timeReg;
+        this.timeLastOnline = timeLastOnline;
+    }
+
+
+    public User(String login, String password, String email, String number, String name, String surname, Integer typeUser, Long type, Long timeReg, Long timeLastOnline) {
+
         this.login = login;
         this.password = password;
         this.email = email;
@@ -188,7 +202,7 @@ public class User {
     public void setAccount(Account account) {
         this.account = account;
     }
-
+/*
     public List<UserSubject> getLists() {
         return lists;
     }
@@ -196,6 +210,8 @@ public class User {
     public void setLists(List<UserSubject> lists) {
         this.lists = lists;
     }
+
+ */
 
     @Override
     public String toString() {

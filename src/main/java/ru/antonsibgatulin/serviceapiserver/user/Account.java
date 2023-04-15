@@ -3,18 +3,17 @@ package ru.antonsibgatulin.serviceapiserver.user;
 import jakarta.persistence.*;
 
 @Entity(name = "Account")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Account {
 
 
     @Id
-    @SequenceGenerator(name = "account_squence",sequenceName = "account_squence",allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "account_squence")
+
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(unique = true,nullable = false)
-    private Long userId;
 
-    @Column(nullable = false,columnDefinition = "VARCHAR(256)")
+    @Column(nullable = true,columnDefinition = "VARCHAR(256)")
     private String minDescription;
 
     @Column(nullable = true,columnDefinition = "VARCHAR(4096)")
@@ -26,9 +25,8 @@ public class Account {
     private Long city;
     private Integer emailTrue;
 
-    public Account(Long id, Long userId, String minDescription, String description, Integer typePayment, Integer phoneTrue, Long region, Long city, Integer emailTrue) {
+    public Account(Long id, String minDescription, String description, Integer typePayment, Integer phoneTrue, Long region, Long city, Integer emailTrue) {
         this.id = id;
-        this.userId = userId;
         this.minDescription = minDescription;
         this.description = description;
         this.typePayment = typePayment;
@@ -51,15 +49,7 @@ public class Account {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getMinDescription() {
+  public String getMinDescription() {
         return minDescription;
     }
 

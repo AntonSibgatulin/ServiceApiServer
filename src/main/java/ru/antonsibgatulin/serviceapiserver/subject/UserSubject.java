@@ -10,7 +10,7 @@ public class UserSubject {
     private Long id;
 
 
-    private Long userId;
+
     private Long id_subject;
     private Double price_on_hour;
     private Integer experience;
@@ -23,9 +23,8 @@ public class UserSubject {
     private Integer oplata;
     private Integer block;
 
-    public UserSubject(Long id, Long userId, Long id_subject, Double price_on_hour, Integer experience, String information, Integer online, Integer intramural, Integer oplata, Integer block) {
+    public UserSubject(Long id, Long id_subject, Double price_on_hour, Integer experience, String information, Integer online, Integer intramural, Integer oplata, Integer block) {
         this.id = id;
-        this.userId = userId;
         this.id_subject = id_subject;
         this.price_on_hour = price_on_hour;
         this.experience = experience;
@@ -48,13 +47,6 @@ public class UserSubject {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public Long getId_subject() {
         return id_subject;

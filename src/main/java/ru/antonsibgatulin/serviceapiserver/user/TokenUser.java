@@ -6,16 +6,15 @@ import jakarta.persistence.*;
 public class TokenUser {
 
     @Id
-    @SequenceGenerator(name = "token_user_sequence",sequenceName = "token_user_sequence",allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "token_user_sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long userId;
+   // private Long userId;
     @Column(name = "token",nullable = false,columnDefinition = "VARCHAR(500)")
     private String token;
 
-    public TokenUser(Long id, Long userId, String token) {
+    public TokenUser(Long id,/* Long userId, */ String token) {
         this.id = id;
-        this.userId = userId;
+        //this.userId = userId;
         this.token = token;
     }
 
@@ -30,7 +29,7 @@ public class TokenUser {
     public void setId(Long id) {
         this.id = id;
     }
-
+/*
     public Long getUserId() {
         return userId;
     }
@@ -39,6 +38,8 @@ public class TokenUser {
         this.userId = userId;
     }
 
+
+ */
     public String getToken() {
         return token;
     }
