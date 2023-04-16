@@ -9,4 +9,6 @@ User getUserByLogin(String login);
 User getUserByNumber(String number);
 User getUserByMail(String email);
 
+User getUserByUserId(Long id);
+
 }

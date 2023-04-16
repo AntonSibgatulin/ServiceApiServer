@@ -1,6 +1,9 @@
 package ru.antonsibgatulin.serviceapiserver.controllers.api.get.request;
 
-public class UserByTokenRequest {
+import ru.antonsibgatulin.serviceapiserver.include.exceptions.BadRequest;
+import ru.antonsibgatulin.serviceapiserver.include.IRequest;
+
+public class UserByTokenRequest implements IRequest {
     public String token;
     public Long id_user;
 
@@ -26,5 +29,13 @@ public class UserByTokenRequest {
 
     public void setId_user(Long id_user) {
         this.id_user = id_user;
+    }
+
+    @Override
+    public Exception getException() {
+        if(token==null){
+            return new BadRequest();
+        }
+        return null;
     }
 }

@@ -2,9 +2,11 @@ package ru.antonsibgatulin.serviceapiserver.controllers.api.auth.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import ru.antonsibgatulin.serviceapiserver.include.exceptions.BadRequest;
+import ru.antonsibgatulin.serviceapiserver.include.IRequest;
 
 @Data
-public class AuthRequest {
+public class AuthRequest implements IRequest {
 
 
     @NotNull
@@ -46,5 +48,13 @@ public class AuthRequest {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    @Override
+    public Exception getException() {
+        if (login == null || password==null){
+            return new BadRequest();
+        }
+        return null;
     }
 }

@@ -1,8 +1,9 @@
 package ru.antonsibgatulin.serviceapiserver.controllers.api.reg.request;
 
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.BadRequest;
+import ru.antonsibgatulin.serviceapiserver.include.IRequest;
 
-public class RegRequest {
+public class RegRequest implements IRequest {
 
     public String login;
     public String password;
@@ -104,6 +105,7 @@ public class RegRequest {
         this.token = token;
     }
 
+    @Override
     public Exception getException(){
         if(password==null || login==null || email==null || number==null || name == null || surname == null || typeUser== null){
             BadRequest badRequest = new BadRequest();
