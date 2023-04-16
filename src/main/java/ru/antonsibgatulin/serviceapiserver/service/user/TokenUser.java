@@ -1,4 +1,4 @@
-package ru.antonsibgatulin.serviceapiserver.user;
+package ru.antonsibgatulin.serviceapiserver.service.user;
 
 import jakarta.persistence.*;
 
@@ -14,7 +14,7 @@ public class TokenUser {
 
     public TokenUser(Long id, Long userId,  String token) {
         this.id = id;
-        //this.userId = userId;
+        this.userId = userId;
         this.token = token;
     }
 

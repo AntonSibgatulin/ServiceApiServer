@@ -1,6 +1,6 @@
 package ru.antonsibgatulin.serviceapiserver.include;
 
-import ru.antonsibgatulin.serviceapiserver.user.User;
+import ru.antonsibgatulin.serviceapiserver.service.user.User;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;

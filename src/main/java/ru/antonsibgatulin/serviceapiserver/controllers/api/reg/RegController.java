@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.antonsibgatulin.serviceapiserver.controllers.api.reg.request.RegRequest;
 import ru.antonsibgatulin.serviceapiserver.include.TokenGenerator;
-import ru.antonsibgatulin.serviceapiserver.money.Money;
-import ru.antonsibgatulin.serviceapiserver.places.repository.CityRepository;
-import ru.antonsibgatulin.serviceapiserver.places.repository.RegionRepository;
-import ru.antonsibgatulin.serviceapiserver.user.Account;
-import ru.antonsibgatulin.serviceapiserver.user.TokenUser;
-import ru.antonsibgatulin.serviceapiserver.user.User;
-import ru.antonsibgatulin.serviceapiserver.user.repository.TokenUserRepository;
-import ru.antonsibgatulin.serviceapiserver.user.repository.UserRepository;
+import ru.antonsibgatulin.serviceapiserver.service.money.Money;
+import ru.antonsibgatulin.serviceapiserver.service.places.repository.CityRepository;
+import ru.antonsibgatulin.serviceapiserver.service.places.repository.RegionRepository;
+import ru.antonsibgatulin.serviceapiserver.service.user.Account;
+import ru.antonsibgatulin.serviceapiserver.service.user.TokenUser;
+import ru.antonsibgatulin.serviceapiserver.service.user.User;
+import ru.antonsibgatulin.serviceapiserver.service.user.repository.TokenUserRepository;
+import ru.antonsibgatulin.serviceapiserver.service.user.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api/v1/reg")
@@ -59,8 +59,9 @@ public class RegController {
             user.setAccount(new Account(null, null, null, 0, 0, null, null, 0));
             user.setMoney(new Money(null, 0.0));
 
-            if(userRepository.getUserByLogin(user.getLogin())==null && userRepository.getUserByNumber(user.getNumber()) == null && userRepository.getUserByMail(user.getEmail())==null) {
-                userRepository.save(user);
+            if(userRepository.getUserByLogin(user.getLogin())==null && userRepository.getUserByNumber(user.getNumber()) == null && userRepository.getUserByEmail(user.getEmail())==null) {
+                user = userRepository.save(user);
+                userRepository.flush();
             }
 
             TokenUser tokenUser = new TokenUser(null,user.getUserId(), TokenGenerator.generateTokenBy(user));

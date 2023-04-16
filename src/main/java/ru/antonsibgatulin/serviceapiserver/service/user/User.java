@@ -1,9 +1,9 @@
-package ru.antonsibgatulin.serviceapiserver.user;
+package ru.antonsibgatulin.serviceapiserver.service.user;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
-import ru.antonsibgatulin.serviceapiserver.money.Money;
-import ru.antonsibgatulin.serviceapiserver.subject.UserSubject;
+import ru.antonsibgatulin.serviceapiserver.service.money.Money;
+import ru.antonsibgatulin.serviceapiserver.service.subject.UserSubject;
 
 import java.util.List;
 
@@ -109,6 +109,9 @@ public class User {
         this.setMoney(null);
         this.setToken(null);
         this.setLogin(null);
+
+        this.setNumber(null);
+        this.setEmail(null);
     }
 
 

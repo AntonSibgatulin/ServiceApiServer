@@ -1,4 +1,4 @@
-package ru.antonsibgatulin.serviceapiserver.money;
+package ru.antonsibgatulin.serviceapiserver.service.money;
 
 import jakarta.persistence.*;
 

@@ -1,4 +1,4 @@
-package ru.antonsibgatulin.serviceapiserver.places;
+package ru.antonsibgatulin.serviceapiserver.service.places;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

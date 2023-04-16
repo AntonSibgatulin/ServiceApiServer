@@ -1,8 +1,8 @@
-package ru.antonsibgatulin.serviceapiserver.user;
+package ru.antonsibgatulin.serviceapiserver.service.user;
 
 import jakarta.persistence.*;
-import ru.antonsibgatulin.serviceapiserver.places.City;
-import ru.antonsibgatulin.serviceapiserver.places.Region;
+import ru.antonsibgatulin.serviceapiserver.service.places.City;
+import ru.antonsibgatulin.serviceapiserver.service.places.Region;
 
 @Entity(name = "Account")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -36,7 +36,7 @@ public class Account {
 
     private Integer emailTrue;
 
-    private Integer day;
+    private String day;
     private Integer start;
     private Integer end;
 
@@ -125,11 +125,11 @@ public class Account {
         this.emailTrue = emailTrue;
     }
 
-    public Integer getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(Integer day) {
+    public void setDay(String day) {
         this.day = day;
     }
 

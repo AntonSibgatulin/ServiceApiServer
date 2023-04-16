@@ -1,7 +1,7 @@
-package ru.antonsibgatulin.serviceapiserver.user.repository;
+package ru.antonsibgatulin.serviceapiserver.service.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.antonsibgatulin.serviceapiserver.user.TokenUser;
+import ru.antonsibgatulin.serviceapiserver.service.user.TokenUser;
 
 public interface TokenUserRepository extends JpaRepository<TokenUser,Long> {
 

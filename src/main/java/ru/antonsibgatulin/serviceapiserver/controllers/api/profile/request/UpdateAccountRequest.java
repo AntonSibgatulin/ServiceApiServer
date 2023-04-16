@@ -1,12 +1,15 @@
 package ru.antonsibgatulin.serviceapiserver.controllers.api.profile.request;
 
+import ru.antonsibgatulin.serviceapiserver.include.ARequest;
 import ru.antonsibgatulin.serviceapiserver.include.IRequest;
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.BadRequest;
 
-public class UpdateAccountRequest implements IRequest {
+public class UpdateAccountRequest extends ARequest implements IRequest {
 
 
-    public Integer day;
+
+
+    public String day;
     public Integer start;
     public Integer end;
     public String name;
@@ -15,25 +18,20 @@ public class UpdateAccountRequest implements IRequest {
     public String description ;
     public Integer typePayment;
 
-    public UpdateAccountRequest(Integer day, Integer start, Integer end, String name, String surname, String minDescription, String description, Integer typePayment) {
-        this.day = day;
-        this.start = start;
-        this.end = end;
-        this.name = name;
-        this.surname = surname;
-        this.minDescription = minDescription;
-        this.description = description;
-        this.typePayment = typePayment;
-    }
+    public Integer city;
+    public Integer region;
+
+
     public UpdateAccountRequest(){
 
     }
 
-    public Integer getDay() {
+
+    public String getDay() {
         return day;
     }
 
-    public void setDay(Integer day) {
+    public void setDay(String day) {
         this.day = day;
     }
 
@@ -93,8 +91,28 @@ public class UpdateAccountRequest implements IRequest {
         this.typePayment = typePayment;
     }
 
+
+    public Integer getCity() {
+        return city;
+    }
+
+    public void setCity(Integer city) {
+        this.city = city;
+    }
+
+    public Integer getRegion() {
+        return region;
+    }
+
+    public void setRegion(Integer region) {
+        this.region = region;
+    }
+
     @Override
     public Exception getException() {
+        if(checkToken()!=null){
+            return checkToken();
+        }
         if (start == null || end == null)
             return new BadRequest();
         if (start < 0)

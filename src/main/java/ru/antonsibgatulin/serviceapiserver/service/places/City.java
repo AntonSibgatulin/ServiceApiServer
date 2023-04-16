@@ -1,17 +1,15 @@
-package ru.antonsibgatulin.serviceapiserver.places;
+package ru.antonsibgatulin.serviceapiserver.service.places;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-@Entity
+@Entity(name = "City")
+@Table(name = "City")
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Integer city_id;
+    private Integer City_id;
     private Integer country_id;
     private Integer region_id;
     private String name;
@@ -20,7 +18,7 @@ public class City {
 
     public City(Long id, Integer city_id, Integer country_id, Integer region_id, String name, Long yandex_id) {
         this.id = id;
-        this.city_id = city_id;
+        this.City_id = city_id;
         this.country_id = country_id;
         this.region_id = region_id;
         this.name = name;
@@ -39,11 +37,11 @@ public class City {
     }
 
     public Integer getCity_id() {
-        return city_id;
+        return City_id;
     }
 
     public void setCity_id(Integer city_id) {
-        this.city_id = city_id;
+        this.City_id = city_id;
     }
 
     public Integer getCountry_id() {

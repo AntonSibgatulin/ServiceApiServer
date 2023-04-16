@@ -1,7 +1,7 @@
-package ru.antonsibgatulin.serviceapiserver.subject.repository;
+package ru.antonsibgatulin.serviceapiserver.service.subject.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.antonsibgatulin.serviceapiserver.subject.UserSubject;
+import ru.antonsibgatulin.serviceapiserver.service.subject.UserSubject;
 
 public interface UserSubjectRepository extends JpaRepository<UserSubject,Long> {
 }

@@ -9,11 +9,10 @@ import ru.antonsibgatulin.serviceapiserver.controllers.api.get.request.UserByTok
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.BadRequest;
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.NotFoundRequest;
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.UnauthorizedResponse;
-import ru.antonsibgatulin.serviceapiserver.user.Account;
-import ru.antonsibgatulin.serviceapiserver.user.TokenUser;
-import ru.antonsibgatulin.serviceapiserver.user.User;
-import ru.antonsibgatulin.serviceapiserver.user.repository.TokenUserRepository;
-import ru.antonsibgatulin.serviceapiserver.user.repository.UserRepository;
+import ru.antonsibgatulin.serviceapiserver.service.user.TokenUser;
+import ru.antonsibgatulin.serviceapiserver.service.user.User;
+import ru.antonsibgatulin.serviceapiserver.service.user.repository.TokenUserRepository;
+import ru.antonsibgatulin.serviceapiserver.service.user.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -28,7 +27,7 @@ public class GetController {
     }
 
     @PostMapping("/userByToken")
-    public Account getAccount(@Valid @RequestBody UserByTokenRequest userByTokenRequest) throws Exception {
+    public User getAccount(@Valid @RequestBody UserByTokenRequest userByTokenRequest) throws Exception {
 
         if (userByTokenRequest.getException()!=null){
             throw userByTokenRequest.getException();
@@ -40,8 +39,8 @@ public class GetController {
             throw new UnauthorizedResponse();
         }
         User user = userRepository.getUserByUserId(tokenUser.getUserId());
-
-        return user.getAccount();
+        //user.predict();
+        return user;
 
     }
 

@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.antonsibgatulin.serviceapiserver.controllers.api.auth.exception.UserPasswordNotValid;
 import ru.antonsibgatulin.serviceapiserver.controllers.api.auth.request.AuthRequest;
 import ru.antonsibgatulin.serviceapiserver.include.TokenGenerator;
-import ru.antonsibgatulin.serviceapiserver.user.TokenUser;
-import ru.antonsibgatulin.serviceapiserver.user.User;
-import ru.antonsibgatulin.serviceapiserver.user.repository.TokenUserRepository;
-import ru.antonsibgatulin.serviceapiserver.user.repository.UserRepository;
+import ru.antonsibgatulin.serviceapiserver.service.user.TokenUser;
+import ru.antonsibgatulin.serviceapiserver.service.user.User;
+import ru.antonsibgatulin.serviceapiserver.service.user.repository.TokenUserRepository;
+import ru.antonsibgatulin.serviceapiserver.service.user.repository.UserRepository;
 
 
 @RestController

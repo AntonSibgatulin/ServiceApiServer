@@ -1,4 +1,4 @@
-package ru.antonsibgatulin.serviceapiserver.subject;
+package ru.antonsibgatulin.serviceapiserver.service.subject;
 
 import jakarta.persistence.*;
 
