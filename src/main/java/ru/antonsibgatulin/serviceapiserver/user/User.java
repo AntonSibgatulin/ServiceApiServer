@@ -1,5 +1,6 @@
 package ru.antonsibgatulin.serviceapiserver.user;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import ru.antonsibgatulin.serviceapiserver.money.Money;
 import ru.antonsibgatulin.serviceapiserver.subject.UserSubject;
@@ -22,12 +23,15 @@ public class User {
     @Column(name = "login",columnDefinition = "VARCHAR(32)",nullable = false)
     private String login;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @Column(name = "password",columnDefinition = "VARCHAR(32)",nullable = false)
     private String password;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @Column(name = "email",columnDefinition = "VARCHAR(35)",nullable = false)
     private String email;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @Column(name = "number",columnDefinition = "VARCHAR(20)",nullable = false)
     private String number;
 
@@ -38,6 +42,7 @@ public class User {
     private String surname;
 
     private Integer typeUser;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long type;
     private Long timeReg;
     private Long timeLastOnline;
@@ -45,7 +50,7 @@ public class User {
 
     //@Query("FROM Money m where m.userId = ?1")
     //private Money money(Integer id);
-
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "money_id")
     private Money money;
@@ -59,7 +64,7 @@ public class User {
     @JoinTable(name="user_subjects_by_id")
     private List<UserSubject> lists;
 
-
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @Transient
     private String token;
 
@@ -97,6 +102,13 @@ public class User {
 
     public User() {
 
+    }
+
+    public void predict(){
+        this.setPassword(null);
+        this.setMoney(null);
+        this.setToken(null);
+        this.setLogin(null);
     }
 
 

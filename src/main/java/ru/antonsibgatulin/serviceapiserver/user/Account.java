@@ -1,6 +1,8 @@
 package ru.antonsibgatulin.serviceapiserver.user;
 
 import jakarta.persistence.*;
+import ru.antonsibgatulin.serviceapiserver.places.City;
+import ru.antonsibgatulin.serviceapiserver.places.Region;
 
 @Entity(name = "Account")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -13,6 +15,7 @@ public class Account {
     private Long id;
 
 
+
     @Column(nullable = true,columnDefinition = "VARCHAR(256)")
     private String minDescription;
 
@@ -21,11 +24,28 @@ public class Account {
 
     private Integer typePayment;
     private Integer phoneTrue;
-    private Long region;
-    private Long city;
+
+
+    @ManyToOne
+    @JoinColumn(name = "region")
+    private Region region;
+
+    @ManyToOne
+    @JoinColumn(name = "city")
+    private City city;
+
     private Integer emailTrue;
 
-    public Account(Long id, String minDescription, String description, Integer typePayment, Integer phoneTrue, Long region, Long city, Integer emailTrue) {
+    private Integer day;
+    private Integer start;
+    private Integer end;
+
+    @Transient
+    private String name;
+    @Transient
+    private String surname;
+
+    public Account(Long id, String minDescription, String description, Integer typePayment, Integer phoneTrue, Region region, City city, Integer emailTrue) {
         this.id = id;
         this.minDescription = minDescription;
         this.description = description;
@@ -81,19 +101,19 @@ public class Account {
         this.phoneTrue = phoneTrue;
     }
 
-    public Long getRegion() {
+    public Region getRegion() {
         return region;
     }
 
-    public void setRegion(Long region) {
+    public void setRegion(Region region) {
         this.region = region;
     }
 
-    public Long getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(Long city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
@@ -103,5 +123,45 @@ public class Account {
 
     public void setEmailTrue(Integer emailTrue) {
         this.emailTrue = emailTrue;
+    }
+
+    public Integer getDay() {
+        return day;
+    }
+
+    public void setDay(Integer day) {
+        this.day = day;
+    }
+
+    public Integer getStart() {
+        return start;
+    }
+
+    public void setStart(Integer start) {
+        this.start = start;
+    }
+
+    public Integer getEnd() {
+        return end;
+    }
+
+    public void setEnd(Integer end) {
+        this.end = end;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 }

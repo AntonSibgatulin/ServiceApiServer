@@ -47,7 +47,7 @@ public class GetController {
 
 
     @PostMapping("/getUserById")
-    public Account getAccountById(@Valid @RequestBody UserByTokenRequest userByTokenRequest){
+    public User getAccountById(@Valid @RequestBody UserByTokenRequest userByTokenRequest){
         //access get another user without token
 
         if(userByTokenRequest.getId_user()==null){
@@ -58,8 +58,9 @@ public class GetController {
         if(user==null){
             throw new NotFoundRequest();
         }
+        user.predict();
 
-        return user.getAccount();
+        return user;
     }
 
 }

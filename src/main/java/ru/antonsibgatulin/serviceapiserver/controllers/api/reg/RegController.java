@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.antonsibgatulin.serviceapiserver.controllers.api.reg.request.RegRequest;
 import ru.antonsibgatulin.serviceapiserver.include.TokenGenerator;
 import ru.antonsibgatulin.serviceapiserver.money.Money;
+import ru.antonsibgatulin.serviceapiserver.places.repository.CityRepository;
+import ru.antonsibgatulin.serviceapiserver.places.repository.RegionRepository;
 import ru.antonsibgatulin.serviceapiserver.user.Account;
 import ru.antonsibgatulin.serviceapiserver.user.TokenUser;
 import ru.antonsibgatulin.serviceapiserver.user.User;
@@ -24,10 +26,14 @@ public class RegController {
 
     private final UserRepository userRepository;
     private final TokenUserRepository tokenUserRepository;
+    private final RegionRepository regionRepository;
+    private final CityRepository cityRepository;
 
-    public RegController(UserRepository userRepository, TokenUserRepository tokenUserRepository) {
+    public RegController(UserRepository userRepository, TokenUserRepository tokenUserRepository, RegionRepository regionRepository, CityRepository cityRepository) {
         this.userRepository = userRepository;
         this.tokenUserRepository = tokenUserRepository;
+        this.regionRepository = regionRepository;
+        this.cityRepository = cityRepository;
     }
 
     /*
@@ -50,7 +56,7 @@ public class RegController {
         }else {
             Long time = System.currentTimeMillis();
             User user = new User(regRequest.getLogin(), regRequest.getPassword(), regRequest.getEmail(), regRequest.getNumber(), regRequest.getName(), regRequest.getSurname(), regRequest.getTypeUser(), 0L, time, time);
-            user.setAccount(new Account(null, null, null, 0, 0, 0L, 0L, 0));
+            user.setAccount(new Account(null, null, null, 0, 0, null, null, 0));
             user.setMoney(new Money(null, 0.0));
 
             if(userRepository.getUserByLogin(user.getLogin())==null && userRepository.getUserByNumber(user.getNumber()) == null && userRepository.getUserByMail(user.getEmail())==null) {
