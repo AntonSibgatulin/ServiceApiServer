@@ -34,7 +34,7 @@ public class AuthController {
             throw new UserPasswordNotValid();
         }
 
-        tokenUserRepository.save(new TokenUser());
+        tokenUserRepository.save(new TokenUser(null,user.getUserId(),));
 
         return user;
     }
