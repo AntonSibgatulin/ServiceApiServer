@@ -1,6 +1,6 @@
 package ru.antonsibgatulin.serviceapiserver.controllers.api.reg.request;
 
-import ru.antonsibgatulin.serviceapiserver.controllers.api.reg.exception.BadRequest;
+import ru.antonsibgatulin.serviceapiserver.include.exceptions.BadRequest;
 
 public class RegRequest {
 
