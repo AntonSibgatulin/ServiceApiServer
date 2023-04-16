@@ -1,13 +1,15 @@
 package ru.antonsibgatulin.serviceapiserver.controllers.api.auth;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.antonsibgatulin.serviceapiserver.controllers.api.auth.exception.UserPasswordNotValid;
 import ru.antonsibgatulin.serviceapiserver.controllers.api.auth.request.AuthRequest;
+import ru.antonsibgatulin.serviceapiserver.user.TokenUser;
 import ru.antonsibgatulin.serviceapiserver.user.User;
+import ru.antonsibgatulin.serviceapiserver.user.repository.TokenUserRepository;
 import ru.antonsibgatulin.serviceapiserver.user.repository.UserRepository;
 
 
@@ -15,10 +17,13 @@ import ru.antonsibgatulin.serviceapiserver.user.repository.UserRepository;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final TokenUserRepository tokenUserRepository;
 
-
+    public AuthController(UserRepository userRepository, TokenUserRepository tokenUserRepository) {
+        this.userRepository = userRepository;
+        this.tokenUserRepository = tokenUserRepository;
+    }
 
 
     @PostMapping(name = "/")
@@ -28,6 +33,8 @@ public class AuthController {
         if (user == null){
             throw new UserPasswordNotValid();
         }
+
+        tokenUserRepository.save(new TokenUser());
 
         return user;
     }

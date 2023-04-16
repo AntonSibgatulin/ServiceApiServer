@@ -12,9 +12,11 @@ public class RegRequest {
     public String surname;
     public Integer typeUser;
 
+    public String token;
+
     public Integer code = 400;
 
-    public RegRequest(String login, String password, String email, String number, String name, String surname, Integer typeUser) {
+    public RegRequest(String login, String password, String email, String number, String name, String surname, Integer typeUser,String token) {
         this.login = login;
         this.password = password;
         this.email = email;
@@ -22,6 +24,8 @@ public class RegRequest {
         this.name = name;
         this.surname = surname;
         this.typeUser = typeUser;
+        this.token = token;
+
     }
 
     public RegRequest() {
@@ -82,6 +86,22 @@ public class RegRequest {
 
     public void setTypeUser(Integer typeUser) {
         this.typeUser = typeUser;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public Exception getException(){

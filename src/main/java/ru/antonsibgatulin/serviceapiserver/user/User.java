@@ -56,10 +56,12 @@ public class User {
     private Account account;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_subjects_by_id")
+    @JoinTable(name="user_subjects_by_id")
     private List<UserSubject> lists;
 
 
+    @Transient
+    private String token;
 
 
 
@@ -202,7 +204,24 @@ public class User {
     public void setAccount(Account account) {
         this.account = account;
     }
-/*
+
+    public List<UserSubject> getLists() {
+        return lists;
+    }
+
+    public void setLists(List<UserSubject> lists) {
+        this.lists = lists;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    /*
     public List<UserSubject> getLists() {
         return lists;
     }

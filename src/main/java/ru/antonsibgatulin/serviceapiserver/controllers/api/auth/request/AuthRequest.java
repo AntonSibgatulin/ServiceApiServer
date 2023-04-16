@@ -5,14 +5,23 @@ import lombok.Data;
 
 @Data
 public class AuthRequest {
+
+
     @NotNull
     public String login;
     @NotNull
     public String password;
 
-    public AuthRequest(String login, String password) {
+    public String token;
+
+
+    public AuthRequest(String login, String password, String token) {
         this.login = login;
         this.password = password;
+        this.token = token;
+    }
+
+    public AuthRequest() {
     }
 
     public String getLogin() {
@@ -29,5 +38,13 @@ public class AuthRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

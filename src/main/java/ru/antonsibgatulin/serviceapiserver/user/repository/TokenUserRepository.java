@@ -5,6 +5,7 @@ import ru.antonsibgatulin.serviceapiserver.user.TokenUser;
 
 public interface TokenUserRepository extends JpaRepository<TokenUser,Long> {
 
+TokenUser getTokenUserByToken(String token);
 
 
 }
