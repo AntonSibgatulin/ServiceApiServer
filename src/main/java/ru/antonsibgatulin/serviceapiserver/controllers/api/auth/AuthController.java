@@ -28,14 +28,15 @@ public class AuthController {
 
 
     @PostMapping(name = "/")
-    public User getUser(@Valid @RequestBody AuthRequest authRequest/*, BindingResult bindingResult */){
+    public User getUser(@Valid @RequestBody AuthRequest authRequest){
         User user = userRepository.getUserByLoginAndPassword(authRequest.getLogin(), authRequest.getPassword());
 
         if (user == null){
             throw new UserPasswordNotValid();
         }
-
-        tokenUserRepository.save(new TokenUser(null,user.getUserId(), TokenGenerator.generateTokenBy(user)));
+        TokenUser tokenUser = new TokenUser(null,user.getUserId(), TokenGenerator.generateTokenBy(user));
+        user.setToken(tokenUser.getToken());
+        tokenUserRepository.save(tokenUser);
 
         return user;
     }
