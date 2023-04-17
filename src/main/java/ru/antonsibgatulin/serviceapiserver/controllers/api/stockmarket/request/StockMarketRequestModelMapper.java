@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import ru.antonsibgatulin.serviceapiserver.service.stockmarket.StockMarket;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface StockMarketRequestModelMapper {
     @Mapping(target = "name",source = "name")
     @Mapping(target = "description",source = "description")

@@ -38,6 +38,13 @@ public class StockMarket {
         this.block = block;
     }
 
+    public void init(){
+        deleted = 0;
+        block = 1;
+        countOffer = 0;
+
+    }
+
 
     public StockMarket() {
     }

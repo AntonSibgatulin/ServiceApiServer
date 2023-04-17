@@ -12,7 +12,7 @@ public class StockMarketRequestModel extends ARequest implements IRequest {
     public Double price;
     public Double maxprice;
     public Integer typeWall;
-    public Integer countOffer;
+    //public Integer countOffer;
     public Long timeCreate=System.currentTimeMillis();
     public Long time=24*1000*60*60*2L;
 
@@ -68,7 +68,7 @@ public class StockMarketRequestModel extends ARequest implements IRequest {
     public void setTypeWall(Integer typeWall) {
         this.typeWall = typeWall;
     }
-
+/*
     public Integer getCountOffer() {
         return countOffer;
     }
@@ -76,6 +76,8 @@ public class StockMarketRequestModel extends ARequest implements IRequest {
     public void setCountOffer(Integer countOffer) {
         this.countOffer = countOffer;
     }
+
+ */
 
     public Long getTimeCreate() {
         return timeCreate;
