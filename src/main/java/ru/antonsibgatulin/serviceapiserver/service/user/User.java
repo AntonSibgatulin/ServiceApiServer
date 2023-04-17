@@ -3,8 +3,10 @@ package ru.antonsibgatulin.serviceapiserver.service.user;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import ru.antonsibgatulin.serviceapiserver.service.money.Money;
+import ru.antonsibgatulin.serviceapiserver.service.stockmarket.StockMarket;
 import ru.antonsibgatulin.serviceapiserver.service.subject.UserSubject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "User")
@@ -16,14 +18,14 @@ import java.util.List;
 
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id",updatable = false)
     private Long userId;
 
     @Column(name = "login",columnDefinition = "VARCHAR(32)",nullable = false)
     private String login;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @Column(name = "password",columnDefinition = "VARCHAR(32)",nullable = false)
     private String password;
 
@@ -67,23 +69,12 @@ public class User {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Transient
     private String token;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "stockmarket_id")
+    public List<StockMarket> stockMarkets=new ArrayList<>();
 
 
 
-
-    public User(Long userId, String login, String password, String email, String number, String name, String surname, Integer typeUser, Long type, Long timeReg, Long timeLastOnline) {
-        this.userId = userId;
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        this.number = number;
-        this.name = name;
-        this.surname = surname;
-        this.typeUser = typeUser;
-        this.type = type;
-        this.timeReg = timeReg;
-        this.timeLastOnline = timeLastOnline;
-    }
 
 
     public User(String login, String password, String email, String number, String name, String surname, Integer typeUser, Long type, Long timeReg, Long timeLastOnline) {
@@ -234,6 +225,14 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public List<StockMarket> getStockMarkets() {
+        return stockMarkets;
+    }
+
+    public void setStockMarkets(List<StockMarket> stockMarkets) {
+        this.stockMarkets = stockMarkets;
     }
 
     /*

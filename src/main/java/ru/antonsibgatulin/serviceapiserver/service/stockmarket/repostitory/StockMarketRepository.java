@@ -8,7 +8,7 @@ import ru.antonsibgatulin.serviceapiserver.service.stockmarket.StockMarket;
 import java.util.List;
 
 public interface StockMarketRepository extends JpaRepository<StockMarket,Long> {
-
+    StockMarket getStockMarketById(Long id);
     @Query("from StockMarket s WHERE s.timeCreate > :time and s.userId = :userId")
     List<StockMarket> findAllWhereTimeCreateMoreThemNumber(@Param("time") Long time,@Param("userId") Long userId);
 

@@ -28,7 +28,11 @@ public class AuthController {
 
 
     @PostMapping(name = "/")
-    public User getUser(@Valid @RequestBody AuthRequest authRequest){
+    public User getUser(@Valid @RequestBody AuthRequest authRequest) throws Exception {
+
+        if(authRequest.getException()!=null){
+            throw authRequest.getException();
+        }
         User user = userRepository.getUserByLoginAndPassword(authRequest.getLogin(), authRequest.getPassword());
 
         if (user == null){

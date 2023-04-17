@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Region {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Integer region_id;

@@ -1,13 +1,13 @@
 package ru.antonsibgatulin.serviceapiserver.controllers.api.stockmarket;
 
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.json.JSONObject;
+import org.springframework.web.bind.annotation.*;
+import ru.antonsibgatulin.serviceapiserver.controllers.api.stockmarket.request.StockMarketDeleteRequest;
 import ru.antonsibgatulin.serviceapiserver.controllers.api.stockmarket.request.StockMarketRequestModel;
 import ru.antonsibgatulin.serviceapiserver.controllers.api.stockmarket.request.StockMarketRequestModelMapper;
 import ru.antonsibgatulin.serviceapiserver.include.StaticContent;
+import ru.antonsibgatulin.serviceapiserver.include.exceptions.ForbiddenException;
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.RestrictionOnCreateObjects;
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.UnauthorizedResponse;
 import ru.antonsibgatulin.serviceapiserver.service.stockmarket.StockMarket;
@@ -52,10 +52,41 @@ public class StockMarketController {
         StockMarket stockMarket = stockMarketRequestModelMapper.FromRequestToStockMarket(stockMarketRequestModel);
         stockMarket.setUserId(user.getUserId());
         stockMarket.init();
-
-        stockMarket = stockMarketRepository.save(stockMarket);
-        stockMarketRepository.flush();
-        return stockMarket;
+        user.stockMarkets.add(stockMarket);
+        user = userRepository.save(user);
+        userRepository.flush();
+        //stockMarket = stockMarketRepository.save(stockMarket);
+       // stockMarketRepository.flush();
+        return user.stockMarkets.get(user.stockMarkets.size()-1);
     }
+
+
+    @PostMapping("/delete/{id}")
+    public JSONObject delete(@PathVariable("id") Long id, @Valid @RequestBody StockMarketDeleteRequest stockMarketDeleteRequest) throws Exception {
+        JSONObject jsonObject = new JSONObject();
+
+        if(stockMarketDeleteRequest.getException()!=null){
+            throw stockMarketDeleteRequest.getException();
+        }
+
+        TokenUser tokenUser = tokenUserRepository.getTokenUserByToken(stockMarketDeleteRequest.getToken());
+        if(tokenUser == null){
+            throw new UnauthorizedResponse();
+        }
+        User user = userRepository.getUserByUserId(tokenUser.getUserId());
+        StockMarket stockMarket = stockMarketRepository.getStockMarketById(id);
+        if(user.getType()>2 || stockMarket.getUserId() == user.getUserId() ){
+
+            stockMarketRepository.delete(stockMarket);
+            jsonObject.put("message","right");
+        }else{
+            throw new ForbiddenException();
+        }
+
+
+
+    return jsonObject;
+    }
+
 
 }

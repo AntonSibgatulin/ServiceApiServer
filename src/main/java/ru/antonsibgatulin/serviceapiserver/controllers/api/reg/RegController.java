@@ -18,7 +18,7 @@ import ru.antonsibgatulin.serviceapiserver.service.user.repository.TokenUserRepo
 import ru.antonsibgatulin.serviceapiserver.service.user.repository.UserRepository;
 
 @RestController
-@RequestMapping("/api/v1/reg")
+@RequestMapping("/api/v1")
 public class RegController {
 
 
@@ -47,7 +47,7 @@ public class RegController {
             return user;
         }
     */
-    @PostMapping("/")
+    @PostMapping("/reg")
     public ResponseEntity<User> registerUser(@Valid @RequestBody RegRequest regRequest) throws Exception {
 
         if (regRequest.getException()!=null){

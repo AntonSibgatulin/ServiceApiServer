@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 @Entity
 public class StockMarket {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "native")
     private Long id;
     private String name;
     private String description;

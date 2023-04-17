@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class Country {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
     private Integer country_id;
     private Integer city_id;

@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class TokenUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
     @Column(name = "token",nullable = false,columnDefinition = "VARCHAR(500)")
