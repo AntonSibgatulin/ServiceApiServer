@@ -9,6 +9,7 @@ import ru.antonsibgatulin.serviceapiserver.controllers.api.get.request.UserByTok
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.BadRequest;
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.NotFoundRequest;
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.UnauthorizedResponse;
+import ru.antonsibgatulin.serviceapiserver.include.result.TypeResult;
 import ru.antonsibgatulin.serviceapiserver.service.user.TokenUser;
 import ru.antonsibgatulin.serviceapiserver.service.user.User;
 import ru.antonsibgatulin.serviceapiserver.service.user.repository.TokenUserRepository;
@@ -27,7 +28,7 @@ public class GetController {
     }
 
     @PostMapping("/userByToken")
-    public User getAccount(@Valid @RequestBody UserByTokenRequest userByTokenRequest) throws Exception {
+    public TypeResult getAccount(@Valid @RequestBody UserByTokenRequest userByTokenRequest) throws Exception {
 
         if (userByTokenRequest.getException()!=null){
             throw userByTokenRequest.getException();
@@ -39,14 +40,16 @@ public class GetController {
             throw new UnauthorizedResponse();
         }
         User user = userRepository.getUserByUserId(tokenUser.getUserId());
-        //user.predict();
-        return user;
+        TypeResult typeResult = new TypeResult("ok",200,"user_by_token");
+        typeResult.setUser(user);
+        return  typeResult;
+
 
     }
 
 
     @PostMapping("/getUserById")
-    public User getAccountById(@Valid @RequestBody UserByTokenRequest userByTokenRequest){
+    public TypeResult getAccountById(@Valid @RequestBody UserByTokenRequest userByTokenRequest){
         //access get another user without token
 
         if(userByTokenRequest.getId_user()==null){
@@ -58,8 +61,9 @@ public class GetController {
             throw new NotFoundRequest();
         }
         user.predict();
-
-        return user;
+        TypeResult typeResult = new TypeResult("ok",200,"get_user_by_id");
+        typeResult.setUser(user);
+        return typeResult;
     }
 
 }

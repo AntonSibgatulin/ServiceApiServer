@@ -1,13 +1,13 @@
 package ru.antonsibgatulin.serviceapiserver.controllers.api.reg;
 
 import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.antonsibgatulin.serviceapiserver.controllers.api.reg.request.RegRequest;
 import ru.antonsibgatulin.serviceapiserver.include.TokenGenerator;
+import ru.antonsibgatulin.serviceapiserver.include.result.TypeResult;
 import ru.antonsibgatulin.serviceapiserver.service.money.Money;
 import ru.antonsibgatulin.serviceapiserver.service.places.repository.CityRepository;
 import ru.antonsibgatulin.serviceapiserver.service.places.repository.RegionRepository;
@@ -48,7 +48,7 @@ public class RegController {
         }
     */
     @PostMapping("/reg")
-    public ResponseEntity<User> registerUser(@Valid @RequestBody RegRequest regRequest) throws Exception {
+    public TypeResult registerUser(@Valid @RequestBody RegRequest regRequest) throws Exception {
 
         if (regRequest.getException()!=null){
             throw regRequest.getException();
@@ -68,8 +68,9 @@ public class RegController {
             user.setToken(tokenUser.getToken());
             tokenUserRepository.save(tokenUser);
 
+            TypeResult typeResult = new TypeResult("ok",200,"reg");
 
-            return ResponseEntity.status(200).body(user);
+            return typeResult;
         }
     }
 

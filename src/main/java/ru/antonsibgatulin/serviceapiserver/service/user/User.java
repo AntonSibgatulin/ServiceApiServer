@@ -235,6 +235,15 @@ public class User {
         this.stockMarkets = stockMarkets;
     }
 
+    public void removeStockMarket(StockMarket stockMarket){
+        for (StockMarket stockMarket1:stockMarkets){
+            if (stockMarket.getId() == stockMarket1.getId()){
+                stockMarkets.remove(stockMarket1);
+                break;
+            }
+        }
+
+    }
     /*
     public List<UserSubject> getLists() {
         return lists;

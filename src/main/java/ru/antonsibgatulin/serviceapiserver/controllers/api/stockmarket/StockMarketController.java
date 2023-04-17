@@ -1,7 +1,6 @@
 package ru.antonsibgatulin.serviceapiserver.controllers.api.stockmarket;
 
 import jakarta.validation.Valid;
-import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 import ru.antonsibgatulin.serviceapiserver.controllers.api.stockmarket.request.StockMarketDeleteRequest;
 import ru.antonsibgatulin.serviceapiserver.controllers.api.stockmarket.request.StockMarketRequestModel;
@@ -10,6 +9,8 @@ import ru.antonsibgatulin.serviceapiserver.include.StaticContent;
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.ForbiddenException;
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.RestrictionOnCreateObjects;
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.UnauthorizedResponse;
+import ru.antonsibgatulin.serviceapiserver.include.result.ResultOfDeleteStockMarket;
+import ru.antonsibgatulin.serviceapiserver.include.result.TypeResult;
 import ru.antonsibgatulin.serviceapiserver.service.stockmarket.StockMarket;
 import ru.antonsibgatulin.serviceapiserver.service.stockmarket.repostitory.StockMarketRepository;
 import ru.antonsibgatulin.serviceapiserver.service.user.TokenUser;
@@ -33,7 +34,7 @@ public class StockMarketController {
     }
 
     @PostMapping("/create")
-    public StockMarket create(@Valid @RequestBody StockMarketRequestModel stockMarketRequestModel) throws Exception {
+    public TypeResult create(@Valid @RequestBody StockMarketRequestModel stockMarketRequestModel) throws Exception {
         if(stockMarketRequestModel.checkToken()!=null){
             throw stockMarketRequestModel.checkToken();
         }
@@ -57,13 +58,15 @@ public class StockMarketController {
         userRepository.flush();
         //stockMarket = stockMarketRepository.save(stockMarket);
        // stockMarketRepository.flush();
-        return user.stockMarkets.get(user.stockMarkets.size()-1);
+        TypeResult typeResult = new TypeResult("ok",200,"create_stock_market");
+        typeResult.setStockMarket(user.stockMarkets.get(user.stockMarkets.size()-1));
+        return typeResult;
     }
 
 
     @PostMapping("/delete/{id}")
-    public JSONObject delete(@PathVariable("id") Long id, @Valid @RequestBody StockMarketDeleteRequest stockMarketDeleteRequest) throws Exception {
-        JSONObject jsonObject = new JSONObject();
+    public ResultOfDeleteStockMarket delete(@PathVariable("id") Long id, @Valid @RequestBody StockMarketDeleteRequest stockMarketDeleteRequest) throws Exception {
+
 
         if(stockMarketDeleteRequest.getException()!=null){
             throw stockMarketDeleteRequest.getException();
@@ -77,16 +80,21 @@ public class StockMarketController {
         StockMarket stockMarket = stockMarketRepository.getStockMarketById(id);
         if(user.getType()>2 || stockMarket.getUserId() == user.getUserId() ){
 
+            user.removeStockMarket(stockMarket);
             stockMarketRepository.delete(stockMarket);
-            jsonObject.put("message","right");
+            userRepository.save(user);
+
         }else{
             throw new ForbiddenException();
         }
 
 
 
-    return jsonObject;
+    return  new ResultOfDeleteStockMarket();
     }
+
+
+
 
 
 }
