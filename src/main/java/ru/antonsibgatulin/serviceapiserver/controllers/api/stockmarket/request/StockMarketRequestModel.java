@@ -96,6 +96,7 @@ public class StockMarketRequestModel extends ARequest implements IRequest {
     }
 
 
+
     @Override
     public Exception getException() {
         if(checkToken()!=null){
