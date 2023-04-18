@@ -2,7 +2,9 @@ package ru.antonsibgatulin.serviceapiserver.service.user;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
+import ru.antonsibgatulin.serviceapiserver.service.lesson.Lesson;
 import ru.antonsibgatulin.serviceapiserver.service.money.Money;
+import ru.antonsibgatulin.serviceapiserver.service.pay.Pay;
 import ru.antonsibgatulin.serviceapiserver.service.stockmarket.StockMarket;
 import ru.antonsibgatulin.serviceapiserver.service.subject.UserSubject;
 
@@ -73,7 +75,14 @@ public class User {
     @JoinTable(name = "stockmarket_id")
     public List<StockMarket> stockMarkets=new ArrayList<>();
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "lesson_id")
+    public List<Lesson> lessons = new ArrayList<>();
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "pay_id")
+    public List<Pay> pays=  new ArrayList<>();
 
 
 
@@ -103,6 +112,7 @@ public class User {
 
         this.setNumber(null);
         this.setEmail(null);
+        this.setPays(null);
     }
 
 
@@ -233,6 +243,22 @@ public class User {
 
     public void setStockMarkets(List<StockMarket> stockMarkets) {
         this.stockMarkets = stockMarkets;
+    }
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
+    }
+
+    public List<Pay> getPays() {
+        return pays;
+    }
+
+    public void setPays(List<Pay> pays) {
+        this.pays = pays;
     }
 
     public void removeStockMarket(StockMarket stockMarket){
