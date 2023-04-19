@@ -17,7 +17,7 @@ import ru.antonsibgatulin.serviceapiserver.service.user.repository.TokenUserRepo
 import ru.antonsibgatulin.serviceapiserver.service.user.repository.UserRepository;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/lesson")
 public class LessonController {
 
     private final UserRepository userRepository;

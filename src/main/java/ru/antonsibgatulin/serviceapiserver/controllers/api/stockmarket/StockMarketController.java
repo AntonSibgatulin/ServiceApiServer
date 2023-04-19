@@ -20,7 +20,7 @@ import ru.antonsibgatulin.serviceapiserver.service.user.repository.TokenUserRepo
 import ru.antonsibgatulin.serviceapiserver.service.user.repository.UserRepository;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/stockmarket")
 public class StockMarketController {
     private final UserRepository userRepository;
     private final StockMarketRequestModelMapper stockMarketRequestModelMapper;
