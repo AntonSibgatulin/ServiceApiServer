@@ -261,6 +261,17 @@ public class User {
         this.pays = pays;
     }
 
+    public Pay deletePayAnotherByType(int type){
+        for(Pay pay:pays){
+            if(pay.getType() == type){
+                pays.remove(pay);
+                return pay;
+            }
+        }
+        return null;
+    }
+
+
     public void removeStockMarket(StockMarket stockMarket){
         for (StockMarket stockMarket1:stockMarkets){
             if (stockMarket.getId() == stockMarket1.getId()){
@@ -296,5 +307,15 @@ public class User {
                 ", timeReg=" + timeReg +
                 ", timeLastOnline=" + timeLastOnline +
                 '}';
+    }
+
+    public Lesson deleteLessonAnotherByType(Long id) {
+        for(Lesson lesson:lessons){
+            if(lesson.getUserId() == id){
+                lessons.remove(lesson);
+                return lesson;
+            }
+        }
+        return null;
     }
 }

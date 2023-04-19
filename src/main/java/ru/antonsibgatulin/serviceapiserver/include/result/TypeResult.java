@@ -1,6 +1,7 @@
 package ru.antonsibgatulin.serviceapiserver.include.result;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import ru.antonsibgatulin.serviceapiserver.service.lesson.Lesson;
 import ru.antonsibgatulin.serviceapiserver.service.stockmarket.StockMarket;
 import ru.antonsibgatulin.serviceapiserver.service.subject.Subject;
 import ru.antonsibgatulin.serviceapiserver.service.user.Account;
@@ -40,6 +41,11 @@ public class TypeResult {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public String type;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Lesson lesson = null;
+
+
 
     public TypeResult(String message,int code,String type){
         this.code = code;
