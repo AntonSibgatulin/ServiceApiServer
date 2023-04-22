@@ -50,7 +50,7 @@ public class LessonController {
         user.lessons.add(lesson);
         userRepository.save(user);
         TypeResult typeResult = new TypeResult("ok",200,"create_lesson");
-        typeResult.user = user;
+        typeResult.setUser(user);
 
         return typeResult;
     }
@@ -88,7 +88,7 @@ public class LessonController {
         }
 
         TypeResult typeResult = new TypeResult("ok",200,"update_lesson");
-        typeResult.user = userRepository.getUserByUserId(tokenUser.getUserId());
+        typeResult.setUser(userRepository.getUserByUserId(tokenUser.getUserId()));
 
         return typeResult;
     }
@@ -121,7 +121,7 @@ public class LessonController {
         }else{
             throw new ForbiddenException();
         }
-        typeResult.user = user;
+        typeResult.setUser(user);
 
        return typeResult;
     }

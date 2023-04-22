@@ -16,7 +16,7 @@ public class TypeResult {
     public String message;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public User user;
+    private User user;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public Account account;
@@ -71,6 +71,7 @@ public class TypeResult {
 
     public void setUser(User user) {
         this.user = user;
+        this.user.predictClass();
     }
 
     public Account getAccount() {

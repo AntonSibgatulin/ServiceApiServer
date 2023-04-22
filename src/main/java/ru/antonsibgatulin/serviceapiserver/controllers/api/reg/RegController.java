@@ -62,6 +62,9 @@ public class RegController {
             if(userRepository.getUserByLogin(user.getLogin())==null && userRepository.getUserByNumber(user.getNumber()) == null && userRepository.getUserByEmail(user.getEmail())==null) {
                 user = userRepository.save(user);
                 userRepository.flush();
+            }else{
+
+                return new TypeResult("error",800,"reg");
             }
 
             TokenUser tokenUser = new TokenUser(null,user.getUserId(), TokenGenerator.generateTokenBy(user));
@@ -69,7 +72,7 @@ public class RegController {
             tokenUserRepository.save(tokenUser);
 
             TypeResult typeResult = new TypeResult("ok",200,"reg");
-
+            typeResult.setUser(user);
             return typeResult;
         }
     }

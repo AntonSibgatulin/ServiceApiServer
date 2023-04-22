@@ -27,7 +27,7 @@ public class User {
     @Column(name = "login",columnDefinition = "VARCHAR(32)",nullable = false)
     private String login;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @Column(name = "password",columnDefinition = "VARCHAR(32)",nullable = false)
     private String password;
 
@@ -113,6 +113,10 @@ public class User {
         this.setNumber(null);
         this.setEmail(null);
         this.setPays(null);
+    }
+
+    public void predictClass(){
+        password = null;
     }
 
 
@@ -292,22 +296,7 @@ public class User {
 
  */
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", number='" + number + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", typeUser=" + typeUser +
-                ", type=" + type +
-                ", timeReg=" + timeReg +
-                ", timeLastOnline=" + timeLastOnline +
-                '}';
-    }
+
 
     public Lesson deleteLessonAnotherByType(Long id) {
         for(Lesson lesson:lessons){

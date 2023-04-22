@@ -13,18 +13,12 @@ public class Account {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
-
     @Column(nullable = true,columnDefinition = "VARCHAR(256)")
     private String minDescription;
-
     @Column(nullable = true,columnDefinition = "VARCHAR(4096)")
     private String description ;
-
     private Integer typePayment;
     private Integer phoneTrue;
-
 
     @ManyToOne
     @JoinColumn(name = "region")
