@@ -16,7 +16,7 @@ import ru.antonsibgatulin.serviceapiserver.service.user.repository.TokenUserRepo
 import ru.antonsibgatulin.serviceapiserver.service.user.repository.UserRepository;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/get")
 public class GetController {
 
     private final UserRepository userRepository;
@@ -48,7 +48,7 @@ public class GetController {
     }
 
 
-    @PostMapping("/getUserById")
+    @PostMapping("/userById")
     public TypeResult getAccountById(@Valid @RequestBody UserByTokenRequest userByTokenRequest){
         //access get another user without token
 

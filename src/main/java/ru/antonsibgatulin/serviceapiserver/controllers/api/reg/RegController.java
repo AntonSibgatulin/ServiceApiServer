@@ -59,13 +59,31 @@ public class RegController {
             user.setAccount(new Account(null, null, null, 0, 0, null, null, 0));
             user.setMoney(new Money(null, 0.0));
 
+            if(userRepository.getUserByLogin(user.getLogin())==null){
+                if(userRepository.getUserByNumber(user.getNumber()) == null){
+                    if(userRepository.getUserByEmail(user.getEmail())==null){
+                        user = userRepository.save(user);
+                        userRepository.flush();
+                    }else{
+                        return new TypeResult("error",802,"reg");
+                    }
+                }else{
+                    return new TypeResult("error",801,"reg");
+                }
+            }else{
+                return new TypeResult("error",800,"reg");
+            }
+
+
+            /*
             if(userRepository.getUserByLogin(user.getLogin())==null && userRepository.getUserByNumber(user.getNumber()) == null && userRepository.getUserByEmail(user.getEmail())==null) {
-                user = userRepository.save(user);
-                userRepository.flush();
+
             }else{
 
                 return new TypeResult("error",800,"reg");
             }
+             */
+
 
             TokenUser tokenUser = new TokenUser(null,user.getUserId(), TokenGenerator.generateTokenBy(user));
             user.setToken(tokenUser.getToken());
