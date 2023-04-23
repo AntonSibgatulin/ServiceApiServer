@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.antonsibgatulin.serviceapiserver.controllers.api.auth.exception.UserPasswordNotValid;
 import ru.antonsibgatulin.serviceapiserver.controllers.api.auth.request.AuthRequest;
 import ru.antonsibgatulin.serviceapiserver.include.TokenGenerator;
+import ru.antonsibgatulin.serviceapiserver.include.exceptions.UnauthorizedResponse;
 import ru.antonsibgatulin.serviceapiserver.include.result.TypeResult;
 import ru.antonsibgatulin.serviceapiserver.service.user.TokenUser;
 import ru.antonsibgatulin.serviceapiserver.service.user.User;
@@ -32,12 +33,12 @@ public class AuthController {
     public TypeResult getUser(@Valid @RequestBody AuthRequest authRequest) throws Exception {
 
         if(authRequest.getException()!=null){
-            throw authRequest.getException();
+            return authRequest.getException();
         }
         User user = userRepository.getUserByLoginAndPassword(authRequest.getLogin(), authRequest.getPassword());
 
         if (user == null){
-            throw new UserPasswordNotValid();
+            return new UnauthorizedResponse().getError();
         }
         TokenUser tokenUser = new TokenUser(null,user.getUserId(), TokenGenerator.generateTokenBy(user));
         user.setToken(tokenUser.getToken());

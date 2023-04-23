@@ -38,12 +38,12 @@ public class LessonController {
     @PostMapping("/create")
     public TypeResult createLesson(@Valid @RequestBody CreateLessonRequest createLessonRequest) throws Exception {
         if (createLessonRequest.getException()!=null) {
-            throw createLessonRequest.getException();
+            return createLessonRequest.getException();
 
         }
         TokenUser tokenUser = tokenUserRepository.getTokenUserByToken(createLessonRequest.getToken());
         if(tokenUser==null){
-            throw new UnauthorizedResponse();
+            return new UnauthorizedResponse().getError();
         }
         User user = userRepository.getUserByUserId(tokenUser.getUserId());
         Lesson lesson = lessonMapper.fromLessonRequestToLesson(createLessonRequest);
@@ -59,17 +59,17 @@ public class LessonController {
     @PostMapping("/update/{id}")
     public TypeResult updateLesson(@PathVariable("id") Long id,@Valid @RequestBody CreateLessonRequest createLessonRequest) throws Exception {
         if (createLessonRequest.getException()!=null) {
-            throw createLessonRequest.getException();
+            return createLessonRequest.getException();
 
         }
         TokenUser tokenUser = tokenUserRepository.getTokenUserByToken(createLessonRequest.getToken());
         if(tokenUser==null){
-            throw new UnauthorizedResponse();
+            return new UnauthorizedResponse().getError();
         }
         User user = userRepository.getUserByUserId(tokenUser.getUserId());
         Lesson lesson = lessonRepository.getLessonById(id);
         if (lesson == null) {
-            throw new NotFoundRequest();
+            return new NotFoundRequest().getError();
         }
         if (lesson.getUserId() == user.getUserId() || user.getType() > 0) {
 
@@ -97,20 +97,20 @@ public class LessonController {
     public TypeResult deleteLesson(@PathVariable("id") Long id, @Valid @RequestBody DeleteRequest deleteRequest) throws Exception {
         TypeResult typeResult = new TypeResult("ok",200,"delete_lesson_by_id");
         if(deleteRequest.getException()!=null){
-            throw deleteRequest.getException();
+            return deleteRequest.getException();
         }
 
 
         TokenUser tokenUser = tokenUserRepository.getTokenUserByToken(deleteRequest.getToken());
         if(tokenUser==null){
-            throw new UnauthorizedResponse();
+            return new UnauthorizedResponse().getError();
         }
 
         User user = userRepository.getUserByUserId(tokenUser.getUserId());
 
         Lesson lesson = lessonRepository.getLessonById(id);
         if(lesson == null){
-            throw new NotFoundRequest();
+            return new NotFoundRequest().getError();
         }
         if (lesson.getUserId() == user.getUserId() || user.getType() > 0){
            Lesson lesson1 = user.deleteLessonAnotherByType(lesson.getId());
@@ -119,7 +119,7 @@ public class LessonController {
             }
             lessonRepository.delete(lesson);
         }else{
-            throw new ForbiddenException();
+            return new ForbiddenException().getError();
         }
         typeResult.setUser(user);
 

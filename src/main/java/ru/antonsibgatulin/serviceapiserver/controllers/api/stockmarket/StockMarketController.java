@@ -37,17 +37,17 @@ public class StockMarketController {
     @PostMapping("/create")
     public TypeResult create(@Valid @RequestBody StockMarketRequestModel stockMarketRequestModel) throws Exception {
         if(stockMarketRequestModel.checkToken()!=null){
-            throw stockMarketRequestModel.checkToken();
+            return stockMarketRequestModel.checkToken();
         }
 
         TokenUser tokenUser = tokenUserRepository.getTokenUserByToken(stockMarketRequestModel.getToken());
         if(tokenUser == null){
-            throw new UnauthorizedResponse();
+            return new UnauthorizedResponse().getError();
         }
         User user = userRepository.getUserByUserId(tokenUser.getUserId());
 
         if(stockMarketRepository.findAllWhereTimeCreateMoreThemNumber(StaticContent.timeToDay(),user.getUserId()).size()>5){
-            throw new RestrictionOnCreateObjects();
+            return new RestrictionOnCreateObjects().getError();
 
         }
 
@@ -66,16 +66,16 @@ public class StockMarketController {
 
 
     @PostMapping("/delete/{id}")
-    public ResultOfDeleteStockMarket delete(@PathVariable("id") Long id, @Valid @RequestBody StockMarketDeleteRequest stockMarketDeleteRequest) throws Exception {
+    public TypeResult delete(@PathVariable("id") Long id, @Valid @RequestBody StockMarketDeleteRequest stockMarketDeleteRequest) throws Exception {
 
 
         if(stockMarketDeleteRequest.getException()!=null){
-            throw stockMarketDeleteRequest.getException();
+            return stockMarketDeleteRequest.getException();
         }
 
         TokenUser tokenUser = tokenUserRepository.getTokenUserByToken(stockMarketDeleteRequest.getToken());
         if(tokenUser == null){
-            throw new UnauthorizedResponse();
+            return new UnauthorizedResponse().getError();
         }
         User user = userRepository.getUserByUserId(tokenUser.getUserId());
         StockMarket stockMarket = stockMarketRepository.getStockMarketById(id);
@@ -86,12 +86,12 @@ public class StockMarketController {
             userRepository.save(user);
 
         }else{
-            throw new ForbiddenException();
+            return new ForbiddenException().getError();
         }
 
 
 
-    return  new ResultOfDeleteStockMarket();
+    return  new TypeResult("ok",200,"delete");
     }
 
 
@@ -99,16 +99,16 @@ public class StockMarketController {
     @PostMapping("/update/{userId}")
     public TypeResult update(@PathVariable("userId") Long id, @Valid @RequestBody StockMarketRequestModel stockMarketRequestModel) throws Exception {
         if(stockMarketRequestModel.checkToken()!=null){
-            throw stockMarketRequestModel.checkToken();
+            return stockMarketRequestModel.checkToken();
         }
         TokenUser tokenUser = tokenUserRepository.getTokenUserByToken(stockMarketRequestModel.getToken());
         if(tokenUser == null){
-            throw new UnauthorizedResponse();
+            return new UnauthorizedResponse().getError();
         }
         User user = userRepository.getUserByUserId(tokenUser.getUserId());
         StockMarket stockMarket = stockMarketRepository.getStockMarketById(id);
         if(stockMarket==null){
-            throw new NotFoundRequest();
+            return new NotFoundRequest().getError();
         }
         if (stockMarket.getUserId() == user.getUserId() || user.getType()>0){
             stockMarket.setDescription(stockMarketRequestModel.getDescription());

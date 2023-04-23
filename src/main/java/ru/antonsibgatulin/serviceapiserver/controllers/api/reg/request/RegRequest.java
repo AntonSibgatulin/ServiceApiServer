@@ -2,6 +2,7 @@ package ru.antonsibgatulin.serviceapiserver.controllers.api.reg.request;
 
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.BadRequest;
 import ru.antonsibgatulin.serviceapiserver.include.IRequest;
+import ru.antonsibgatulin.serviceapiserver.include.result.TypeResult;
 
 public class RegRequest implements IRequest {
 
@@ -106,11 +107,11 @@ public class RegRequest implements IRequest {
     }
 
     @Override
-    public Exception getException(){
+    public TypeResult getException(){
         if(password==null || login==null || email==null || number==null || name == null || surname == null || typeUser== null){
             BadRequest badRequest = new BadRequest();
             badRequest.error = "Bad request.Something is wrong!";
-            return badRequest;
+            return badRequest.getError();
         }
         return null;
     }

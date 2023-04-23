@@ -4,6 +4,7 @@ import ru.antonsibgatulin.serviceapiserver.include.ARequest;
 import ru.antonsibgatulin.serviceapiserver.include.IRequest;
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.BadRequest;
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.UnauthorizedResponse;
+import ru.antonsibgatulin.serviceapiserver.include.result.TypeResult;
 
 public class CreateLessonRequest extends ARequest implements IRequest {
 
@@ -78,12 +79,12 @@ public class CreateLessonRequest extends ARequest implements IRequest {
 
 
     @Override
-    public Exception getException() {
+    public TypeResult getException() {
         if(checkToken() !=null){
-            return new UnauthorizedResponse();
+            return new UnauthorizedResponse().getError();
         }
         if(experience>4 || experience<0){
-            return new BadRequest();
+            return new BadRequest().getError();
         }
         if(online!= 0 && online != 1){
             online = 0;

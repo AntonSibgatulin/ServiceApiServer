@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.BadRequest;
 import ru.antonsibgatulin.serviceapiserver.include.IRequest;
+import ru.antonsibgatulin.serviceapiserver.include.result.TypeResult;
 
 @Data
 public class AuthRequest implements IRequest {
@@ -51,9 +52,9 @@ public class AuthRequest implements IRequest {
     }
 
     @Override
-    public Exception getException() {
+    public TypeResult getException() {
         if (login == null || password==null){
-            return new BadRequest();
+            return new BadRequest().getError();
         }
         return null;
     }

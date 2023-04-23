@@ -13,7 +13,7 @@ public class Account {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = true,columnDefinition = "VARCHAR(256)")
+    @Column(nullable = true,columnDefinition = "VARCHAR(40)")
     private String minDescription;
     @Column(nullable = true,columnDefinition = "VARCHAR(4096)")
     private String description ;

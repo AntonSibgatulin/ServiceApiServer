@@ -36,12 +36,12 @@ public class PayController {
     public TypeResult savePay(@Valid @RequestBody PayRequest payRequest) throws Exception {
 
         if(payRequest.checkToken()!=null){
-            throw payRequest.checkToken();
+            return payRequest.checkToken();
         }
 
         TokenUser tokenUser = tokenUserRepository.getTokenUserByToken(payRequest.getToken());
         if(tokenUser==null){
-            throw new UnauthorizedResponse();
+            return new UnauthorizedResponse().getError();
         }
         User user = userRepository.getUserByUserId(tokenUser.getUserId());
 
@@ -64,11 +64,11 @@ public class PayController {
     public TypeResult delete(@PathVariable("type")Integer type, @Valid @RequestBody DeleteRequest deleteRequest) throws Exception {
 
         if(deleteRequest.checkToken()!=null){
-            throw deleteRequest.checkToken();
+            return deleteRequest.checkToken();
         }
         TokenUser tokenUser = tokenUserRepository.getTokenUserByToken(deleteRequest.getToken());
         if(tokenUser==null){
-            throw new UnauthorizedResponse();
+            return new UnauthorizedResponse().getError();
         }
         User user = userRepository.getUserByUserId(tokenUser.getUserId());
 

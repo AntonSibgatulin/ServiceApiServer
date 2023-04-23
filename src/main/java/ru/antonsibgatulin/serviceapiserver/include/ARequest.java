@@ -1,13 +1,14 @@
 package ru.antonsibgatulin.serviceapiserver.include;
 
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.UnauthorizedResponse;
+import ru.antonsibgatulin.serviceapiserver.include.result.TypeResult;
 
 public class ARequest {
     public String token;
 
-    public Exception checkToken(){
+    public TypeResult checkToken(){
         if (token == null){
-            return new UnauthorizedResponse();
+            return new UnauthorizedResponse().getError();
         }else{
             return null;
         }

@@ -3,6 +3,7 @@ package ru.antonsibgatulin.serviceapiserver.controllers.api.profile.request;
 import ru.antonsibgatulin.serviceapiserver.include.ARequest;
 import ru.antonsibgatulin.serviceapiserver.include.IRequest;
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.BadRequest;
+import ru.antonsibgatulin.serviceapiserver.include.result.TypeResult;
 
 public class UpdateAccountRequest extends ARequest implements IRequest {
 
@@ -109,12 +110,12 @@ public class UpdateAccountRequest extends ARequest implements IRequest {
     }
 
     @Override
-    public Exception getException() {
+    public TypeResult getException() {
         if(checkToken()!=null){
             return checkToken();
         }
         if (start == null || end == null)
-            return new BadRequest();
+            return new BadRequest().getError();
         if (start < 0)
             start = 0;
         if (start > 23)

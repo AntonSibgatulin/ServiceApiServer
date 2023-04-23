@@ -51,7 +51,7 @@ public class RegController {
     public TypeResult registerUser(@Valid @RequestBody RegRequest regRequest) throws Exception {
 
         if (regRequest.getException()!=null){
-            throw regRequest.getException();
+            return regRequest.getException();
 
         }else {
             Long time = System.currentTimeMillis();
