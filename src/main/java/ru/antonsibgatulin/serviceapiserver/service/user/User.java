@@ -51,6 +51,13 @@ public class User {
     private Long timeReg;
     private Long timeLastOnline;
 
+    @Column(nullable = false)
+    private Integer actionPage;//0 1-delete 2-ban 3-ban spam
+
+    @ManyToOne
+    @JoinTable(name = "profile_image_by_id")
+    private ProfileImage profileImage;
+
 
     //@Query("FROM Money m where m.userId = ?1")
     //private Money money(Integer id);
@@ -263,6 +270,22 @@ public class User {
 
     public void setPays(List<Pay> pays) {
         this.pays = pays;
+    }
+
+    public Integer getActionPage() {
+        return actionPage;
+    }
+
+    public void setActionPage(Integer actionPage) {
+        this.actionPage = actionPage;
+    }
+
+    public ProfileImage getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(ProfileImage profileImage) {
+        this.profileImage = profileImage;
     }
 
     public Pay deletePayAnotherByType(int type){

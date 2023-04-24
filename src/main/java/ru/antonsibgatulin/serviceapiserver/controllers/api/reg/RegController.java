@@ -56,6 +56,7 @@ public class RegController {
         }else {
             Long time = System.currentTimeMillis();
             User user = new User(regRequest.getLogin(), regRequest.getPassword(), regRequest.getEmail(), regRequest.getNumber(), regRequest.getName(), regRequest.getSurname(), regRequest.getTypeUser(), 0L, time, time);
+            user.setActionPage(0);
             user.setAccount(new Account(null, null, null, 0, 0, null, null, 0));
             user.setMoney(new Money(null, 0.0));
 
