@@ -3,6 +3,7 @@ package ru.antonsibgatulin.serviceapiserver.controllers.api.pay.request;
 import ru.antonsibgatulin.serviceapiserver.include.ARequest;
 import ru.antonsibgatulin.serviceapiserver.include.IRequest;
 import ru.antonsibgatulin.serviceapiserver.include.exceptions.BadRequest;
+import ru.antonsibgatulin.serviceapiserver.include.result.TypeResult;
 
 public class PayRequest extends ARequest implements IRequest {
 
@@ -29,12 +30,12 @@ public class PayRequest extends ARequest implements IRequest {
     }
 
     @Override
-    public Exception getException() {
+    public TypeResult getException() {
         if(type!= 0 && type!=1){
-            return new BadRequest();
+            return new BadRequest().getError();
         }
         if(getData()==null /*|| (data.length()!=11 && data.length()!=16)*/){
-            return new BadRequest();
+            return new BadRequest().getError();
         }
         if(checkToken()!=null){
             return checkToken();

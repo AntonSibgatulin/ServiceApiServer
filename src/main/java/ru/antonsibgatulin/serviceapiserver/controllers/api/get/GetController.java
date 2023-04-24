@@ -31,13 +31,13 @@ public class GetController {
     public TypeResult getAccount(@Valid @RequestBody UserByTokenRequest userByTokenRequest) throws Exception {
 
         if (userByTokenRequest.getException()!=null){
-            throw userByTokenRequest.getException();
+            return userByTokenRequest.getException();
 
         }
 
         TokenUser tokenUser = tokenUserRepository.getTokenUserByToken(userByTokenRequest.getToken());
         if (tokenUser == null){
-            throw new UnauthorizedResponse();
+            return new UnauthorizedResponse().getError();
         }
         User user = userRepository.getUserByUserId(tokenUser.getUserId());
         TypeResult typeResult = new TypeResult("ok",200,"user_by_token");
@@ -53,12 +53,12 @@ public class GetController {
         //access get another user without token
 
         if(userByTokenRequest.getId_user()==null){
-            throw new BadRequest();
+            return new BadRequest().getError();
         }
         User user = userRepository.getUserByUserId(userByTokenRequest.getId_user());
 
         if(user==null){
-            throw new NotFoundRequest();
+            return new NotFoundRequest().getError();
         }
         user.predict();
         TypeResult typeResult = new TypeResult("ok",200,"get_user_by_id");

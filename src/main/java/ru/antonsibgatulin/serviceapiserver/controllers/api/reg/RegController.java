@@ -51,11 +51,12 @@ public class RegController {
     public TypeResult registerUser(@Valid @RequestBody RegRequest regRequest) throws Exception {
 
         if (regRequest.getException()!=null){
-            throw regRequest.getException();
+            return regRequest.getException();
 
         }else {
             Long time = System.currentTimeMillis();
             User user = new User(regRequest.getLogin(), regRequest.getPassword(), regRequest.getEmail(), regRequest.getNumber(), regRequest.getName(), regRequest.getSurname(), regRequest.getTypeUser(), 0L, time, time);
+            user.setActionPage(0);
             user.setAccount(new Account(null, null, null, 0, 0, null, null, 0));
             user.setMoney(new Money(null, 0.0));
 

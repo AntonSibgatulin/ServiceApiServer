@@ -3,6 +3,7 @@ package ru.antonsibgatulin.serviceapiserver.controllers.api.stockmarket.request;
 
 import ru.antonsibgatulin.serviceapiserver.include.ARequest;
 import ru.antonsibgatulin.serviceapiserver.include.IRequest;
+import ru.antonsibgatulin.serviceapiserver.include.result.TypeResult;
 
 public class StockMarketRequestModel extends ARequest implements IRequest {
 
@@ -98,7 +99,7 @@ public class StockMarketRequestModel extends ARequest implements IRequest {
 
 
     @Override
-    public Exception getException() {
+    public TypeResult getException() {
         if(checkToken()!=null){
             return checkToken();
         }
